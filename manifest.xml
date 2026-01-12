@@ -17,6 +17,7 @@
   
   <AppDomains>
     <AppDomain>https://api.anthropic.com</AppDomain>
+    <AppDomain>https://prairie-forge-ai.github.io</AppDomain>
   </AppDomains>
   
   <Hosts>
