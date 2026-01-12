@@ -37,6 +37,49 @@
             border: 1px solid #333;
         }
         
+        .api-key-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        
+        .api-key-input-group input {
+            flex: 1;
+        }
+        
+        .save-key-btn {
+            padding: 8px 16px;
+            background: #2E30CD;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            margin-top: 0;
+            width: auto;
+        }
+        
+        .save-key-btn:hover {
+            background: #2527b3;
+        }
+        
+        .save-key-btn.saved {
+            background: #28a745;
+        }
+        
+        .api-key-status {
+            font-size: 11px;
+            color: #28a745;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .api-key-status.show {
+            display: block;
+        }
+        
         label {
             display: block;
             margin-bottom: 8px;
@@ -174,7 +217,11 @@
         
         <div class="api-key-section">
             <label for="apiKey">Anthropic API Key:</label>
-            <input type="password" id="apiKey" placeholder="sk-ant-..." />
+            <div class="api-key-input-group">
+                <input type="password" id="apiKey" placeholder="sk-ant-..." />
+                <button class="save-key-btn" id="saveKeyBtn" onclick="saveApiKey()">Save</button>
+            </div>
+            <div class="api-key-status" id="apiKeyStatus">✓ API key saved</div>
             <div style="font-size: 11px; color: #666; margin-top: 8px;">
                 Get your API key from <a href="https://console.anthropic.com" target="_blank" style="color: #2E30CD;">console.anthropic.com</a>
             </div>
@@ -223,12 +270,46 @@
                 const savedKey = localStorage.getItem('anthropicApiKey');
                 if (savedKey) {
                     document.getElementById('apiKey').value = savedKey;
+                    document.getElementById('apiKeyStatus').classList.add('show');
                 }
                 
                 // Track selection changes
                 trackSelection();
             }
         });
+        
+        function saveApiKey() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const statusDiv = document.getElementById('apiKeyStatus');
+            const saveBtn = document.getElementById('saveKeyBtn');
+            
+            if (!apiKey) {
+                statusDiv.textContent = '⚠ Please enter an API key';
+                statusDiv.style.color = '#ff6b6b';
+                statusDiv.classList.add('show');
+                return;
+            }
+            
+            if (!apiKey.startsWith('sk-ant-')) {
+                statusDiv.textContent = '⚠ API key should start with sk-ant-';
+                statusDiv.style.color = '#ff6b6b';
+                statusDiv.classList.add('show');
+                return;
+            }
+            
+            localStorage.setItem('anthropicApiKey', apiKey);
+            statusDiv.textContent = '✓ API key saved';
+            statusDiv.style.color = '#28a745';
+            statusDiv.classList.add('show');
+            
+            saveBtn.classList.add('saved');
+            saveBtn.textContent = 'Saved';
+            
+            setTimeout(() => {
+                saveBtn.classList.remove('saved');
+                saveBtn.textContent = 'Save';
+            }, 2000);
+        }
         
         async function trackSelection() {
             try {
