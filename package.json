@@ -1,0 +1,17 @@
+{
+  "name": "excel-claude-addin",
+  "version": "1.0.0",
+  "description": "Excel add-in powered by Claude AI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["excel", "office", "add-in", "claude", "ai"],
+  "author": "Prairie Forge",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "https": "^1.0.0"
+  }
+}
