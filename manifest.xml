@@ -24,6 +24,12 @@
     <Host Name="Workbook"/>
   </Hosts>
   
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="ExcelApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  
   <DefaultSettings>
     <SourceLocation DefaultValue="https://prairie-forge-ai.github.io/claude-excel-add-in-demo/taskpane.html"/>
   </DefaultSettings>
@@ -34,14 +40,6 @@
     <Hosts>
       <Host xsi:type="Workbook">
         <DesktopFormFactor>
-          <GetStarted>
-            <Title resid="GetStarted.Title"/>
-            <Description resid="GetStarted.Description"/>
-            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
-          </GetStarted>
-          
-          <FunctionFile resid="Commands.Url"/>
-          
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
               <Group id="CommandsGroup">
@@ -82,8 +80,6 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://via.placeholder.com/80x80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://prairieforge.ai"/>
-        <bt:Url id="Commands.Url" DefaultValue="https://prairie-forge-ai.github.io/claude-excel-add-in-demo/commands.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://prairie-forge-ai.github.io/claude-excel-add-in-demo/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
